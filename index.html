@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <!-- 主题曲 -->
+    <video src="His Theme - Toby Fox.mp3" id="Theme"></video>
+    <!-- 被吃音乐 -->
+    <video src="被吃.mp3" id="eat"></video>
+    <!-- 没吃着音乐 -->
+    <video src="被杀.mp3" id="kill"></video>
+    <!-- 开始界面 start -->
+    <div class="start">
+        <button class="startGame"></button>
+        <button class="OL"></button>
+        <button class="featrue"></button>
+        <!-- 操作说明 start -->
+        <div class="operation">
+            <button class="x"></button>
+        </div>
+        <!-- 操作说明end -->
+    </div>
+    <!-- 开始界面 end -->
+    <!-- 头部 start -->
+    <div class="header">
+        <div class="history">
+            <div class="show">历史最高</div>
+            <div class="number">0</div>
+        </div>
+        <div class="player1">
+            <div id="play1"> P1</div>
+            <div class="health">
+                <i>玩家生命</i>
+                <span id="HealthBar1">
+                    <img src="images/life.png">
+                    <img src="images/life.png">
+                    <img src="images/life.png">
+                </span>
+            </div>
+            <div class="integrate">
+                <i>积分</i>
+                <span id="number1">0</span>
+            </div>
+        </div>
+        <div class="player2">
+            <div id="play2"> P2</div>
+            <div class="health">
+                <i>玩家生命</i>
+                <span id="HealthBar2">
+                    <img src="images/life.png">
+                    <img src="images/life.png">
+                    <img src="images/life.png">
+                </span>
+            </div>
+            <div class="integrate">
+                <i>积分</i>
+                <span id="number2">0</span>
+            </div>
+        </div>
+    </div>
+    <!-- 头部 end -->
+    <!-- 选择颜色部分 start -->
+    <div class="electColor">
+        <div class="box1">
+            <img src="images/our.png" id="our1">
+        </div>
+        <div class="box2">
+            <img src="images/our.png" id="our2">
+        </div>
+        <div class="pipi1">
+            <span class="bar">
+                <div class="yuan1" id="1"></div>
+            </span>
+        </div>
+        <div class="pipi2">
+            <span class="bar">
+                <div class="yuan2" id="2"></div>
+            </span>
+        </div>
+        <button class="startgame"></button>
+    </div>
+    <!-- 选择颜色部分 end -->
+    <!-- 游戏界面 start-->
+    <div class="gameInterface">
+        <ul class="trueInterface">
+            <li class="bb"></li>
+            <li class="qq"></li>
+            <li class="bb"></li>
+        </ul>
+    </div>
+    <!-- 游戏界面 end -->
+    <!-- 游戏结束 start -->
+    <div class="gameover">
+        <button class="restart"></button>
+    </div>
+    <!-- 游戏结束 end -->
+    <!-- 游戏结束 start -->
+    <div class="win">
+        <button class="restartb"></button>
+    </div>
+    <!-- 游戏结束 end -->
+    <script src="js/collisiondetection.js"></script>
+    <script src="js/Create.js"></script>
+    <script src="js/Control.js"></script>
+    <script src="js/Countdown.js"></script>
+    <script src="js/collide.js"></script>
+    <script>
+        // 背景移动定时器
+        let backMoveTime;
+        // 开始游戏
+        var startGame = $('.startGame');
+        // 操作说明
+        var OLshow = $('.OL');
+        // 游戏介绍
+        var referral = $('.operation');
+        // 操作说明介绍 xx
+        var referralX = $('.x');
+        // 游戏结束
+        var gameover = $('.gameover');
+
+        OLshow.onclick = function () {
+            referral.style.display = 'block';
+        }
+        referralX.onclick = function () {
+            referral.style.display = 'none';
+        }
+
+
+        // 背景图
+        var back = $('.trueInterface');
+        back.style.left = 0 + 'px';
+
+        var bb = $('.bb');
+        var qq = $('.qq');
+
+
+        backMoveTime = setInterval(function () {
+            if (parseInt(back.style.left) <= -1240) {
+                back.style.left = 0 + 'px';
+            }
+            back.style.left = back.offsetLeft - 1 + 'px';
+        }, 50);
+        let main1 = $('.electColor');
+        // 选择颜色
+        var yuan1 = $('.yuan1');
+        var yuan2 = $('.yuan2');
+        let yuan1top = $('.pipi1');
+        // 玩家1
+        var our1 = $('#our1');
+        // 控制颜色
+        function getColor(element, our) {
+            element.onmousedown = function () {
+                element.onmousemove = function (e) {
+                    var pageY = e.pageY - main1.offsetTop;
+                    var y = pageY - yuan1top.offsetTop;
+                    element.style.top = y - 7 + 'px';
+                    if (element.getAttribute('id') == 1) {
+                        fishColor = `rgba(${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)},1)`;
+                        our.style.boxShadow = `0 0 10px 2px ${fishColor}`;
+                    } else if (element.getAttribute('id') == 2) {
+                        fishColor1 = `rgba(${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)},${Math.floor(Math.random() * 255 + 1)},1)`;
+                        our.style.boxShadow = `0 0 10px 2px ${fishColor1}`;
+                    }
+
+
+                    our.style.borderRadius = '50%';
+                    if (parseInt(element.style.top) >= 150) {
+                        element.style.top = 150 + 'px';
+                    } else if (parseInt(element.style.top) <= 0) {
+                        element.style.top = 0 + 'px';
+                    }
+                }
+            }
+            element.onmouseup = function () {
+                element.onmousemove = null;
+            }
+        }
+        getColor(yuan1, our1);
+        getColor(yuan2, our2);
+
+        // 是否选择玩家2
+        let our2play = $('#our2');
+        // 选择玩家2 flag
+        let selectOur2flag = true;
+        let box2 = $('.box2');
+        box2.onclick = function () {
+            if (selectOur2flag) {
+                our2play.style.display = 'block';
+                selectOur2flag = false;
+            } else {
+                our2play.style.display = 'none';
+                selectOur2flag = true;
+            }
+        }
+        var number = $('.number');
+        let history1 = { "num": number.innerText };
+
+
+
+        var stringHistory;
+
+        // 保存历史最高记录
+        function history() {
+            // 历史最高
+            var bb;
+            var hh = localStorage.getItem('history');
+            if (play1Number > play2Number) {
+
+                if (parseInt(play1Number) >= parseInt(hh)) {
+                    stringHistory = play1Number;
+                    localStorage.setItem('history', stringHistory);
+                }
+            } else if (play1Number < play2Number) {
+                if (parseInt(play2Number) >= parseInt(hh)) {
+                    stringHistory = play2Number;
+                    localStorage.setItem('history', stringHistory);
+                }
+            }
+            // console.log(JSON.parse(localStorage.getItem('history')).num);
+            number.innerText = localStorage.getItem('history');
+            if (parseInt(localStorage.getItem('history')) == 0 || parseInt(number.innerText) == 0) {
+                localStorage.setItem('history', parseInt(history1.num));
+            }
+
+        }
+        setInterval(history, 50);
+    </script>
+</body>
+
+</html>

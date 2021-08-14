@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .play1,
+        .play2 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .play1 {
+            background: red;
+        }
+
+        .play2 {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="play1" style="top:0px; left:0px;"></div>
+    <div class="play2" style="top:0px; left:0px;"></div>
+    <script>
+        var up = false;
+        var down = false;
+        var left = false;
+        var right = false;
+        var play1 = document.querySelector('.play1');
+        var play2 = document.querySelector('.play2');
+        window.onkeydown = function (e) {
+            console.log(e.keyCode);
+            // 87 上
+            // 83 下
+            // 65 左
+            // 68 右
+            // 38 上
+            // 40 下
+            // 37 左
+            // 39 右
+            if (e.keyCode == 87) {
+                play1.style.top = play1.offsetTop + -10 + 'px';
+            } else if (e.keyCode == 83) {
+                play1.style.top = play1.offsetTop + 10 + 'px';
+            } else if (e.keyCode == 65) {
+                play1.style.left = play1.offsetLeft + -10 + 'px';
+            } else if (e.keyCode == 68) {
+                play1.style.left = play1.offsetLeft + 10 + 'px';
+            } else if (e.keyCode == 38) {
+                up = true;
+            } else if (e.keyCode == 40) {
+                down = true;
+            } else if (e.keyCode == 37) {
+                left = true;
+            } else if (e.keyCode == 39) {
+                right = true;
+            }
+        }
+        window.onkeyup = function (e) {
+            // 87 上
+            // 83 下
+            // 65 左
+            // 68 右
+            // 38 上
+            // 40 下
+            // 37 左
+            // 39 右
+            if (e.keyCode == 38) {
+                up = false;
+            } else if (e.keyCode == 40) {
+                down = false;
+            } else if (e.keyCode == 37) {
+                left = false;
+            } else if (e.keyCode == 39) {
+                right = false;
+            }
+        }
+
+        setInterval(function () {
+            if (up) {
+                play2.style.top = parseInt(play2.style.top) + -10 + 'px';
+            }
+            if (down) {
+                play2.style.top = parseInt(play2.style.top) + 10 + 'px';
+            }
+            if (right) {
+                play2.style.left = parseInt(play2.style.left) + 10 + 'px';
+            }
+            if (left) {
+                play2.style.left = parseInt(play2.style.left) + -10 + 'px';
+            }
+        }, 50)
+
+
+    </script>
+</body>
+
+</html>
